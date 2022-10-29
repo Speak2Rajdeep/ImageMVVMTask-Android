@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ImageMVVMTask</string>
+    <string name="loading_please_wait_str">Loading, Please Wait</string>
+</resources>
