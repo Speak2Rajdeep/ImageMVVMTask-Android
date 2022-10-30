@@ -1,172 +1,39 @@
 package com.example.imagemvvmtask.views
 
 import android.os.Bundle
-import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.imagemvvmtask.R
 import com.example.imagemvvmtask.databinding.ActivityMainBinding
-import com.example.imagemvvmtask.models.Photos
+import com.example.imagemvvmtask.viewmodel.PhotosViewModel
 
 /**
- * 1. This project is based on MVVm Architecture.
- * 2. Some Photos are set from URL.
- * 3. Photos are shown in RecyclerView Grid layout.
+ * 1. This project is based on MVVM Architecture.
+ * 2. Here we are getting the data from ViewModel Class to Show.
+ * 3. Photos are shown in RecyclerView Grid layout with Span Count 2.
  */
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var newArrayList: ArrayList<Photos>
-    lateinit var imageId: Array<Int>
-    private lateinit var progressBar: ProgressBar
-    private lateinit var loading: TextView
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: PhotosViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//        val viewModel: com.example.imagemvvmtask.viewmodel.Photos =
-//            ViewModelProvider(this)[com.example.imagemvvmtask.viewmodel.Photos::class.java]
-
-
-        imageId = arrayOf(
-            R.drawable.android,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.sky,
-            R.drawable.laptop,
-            R.drawable.person,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.android,
-            R.drawable.laptop,
-            R.drawable.android,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.sky,
-            R.drawable.laptop,
-            R.drawable.person,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.android,
-            R.drawable.laptop,
-            R.drawable.android,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.sky,
-            R.drawable.laptop,
-            R.drawable.person,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.android,
-            R.drawable.laptop,
-            R.drawable.android,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.sky,
-            R.drawable.laptop,
-            R.drawable.person,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.android,
-            R.drawable.laptop,
-            R.drawable.android,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.sky,
-            R.drawable.laptop,
-            R.drawable.person,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.android,
-            R.drawable.laptop,
-            R.drawable.android,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.sky,
-            R.drawable.laptop,
-            R.drawable.person,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.android,
-            R.drawable.laptop,
-            R.drawable.android,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.sky,
-            R.drawable.laptop,
-            R.drawable.person,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.android,
-            R.drawable.laptop,
-            R.drawable.android,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.sky,
-            R.drawable.laptop,
-            R.drawable.person,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.android,
-            R.drawable.laptop,
-            R.drawable.android,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.sky,
-            R.drawable.laptop,
-            R.drawable.person,
-            R.drawable.sky,
-            R.drawable.insta,
-            R.drawable.spiderman,
-            R.drawable.android,
-            R.drawable.laptop
-
-        )
-        val gridLayout = GridLayoutManager(this, 2)
-
         recyclerView = binding.recycler
-        progressBar = binding.progress
-        loading = binding.loading
 
-        progressBar.visibility = View.GONE
-        loading.visibility = View.GONE
+        //Connecting with ViewModel Class
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        )[PhotosViewModel::class.java]
+
+        val gridLayout = GridLayoutManager(this, 2)
         recyclerView.layoutManager = gridLayout
-
-        //viewModel.recyclerViewImplementation()
-        // viewModel.getData()
-        newArrayList = arrayListOf<Photos>()
-        getData()
-    }
-
-    private fun getData() {
-        for (i in imageId.indices) {
-            val pics = Photos(imageId[i])
-            newArrayList.add(pics)
-        }
-        recyclerView.adapter = MyAdapter(newArrayList)
+        recyclerView.adapter = viewModel.recyclerViewImplementation()
     }
 }
