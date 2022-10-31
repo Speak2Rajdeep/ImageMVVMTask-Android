@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.imagemvvmtask.R
 import com.example.imagemvvmtask.models.Photos
 
@@ -27,7 +28,9 @@ class MyAdapter(private val cardImages: ArrayList<Photos>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = cardImages[position]
-        holder.cardsImage.setImageResource(currentItem.cardImage)
+        Glide.with(holder.itemView.context)
+            .load(currentItem.cardImage)
+            .into(holder.cardsImage)
     }
 
     override fun getItemCount(): Int {
