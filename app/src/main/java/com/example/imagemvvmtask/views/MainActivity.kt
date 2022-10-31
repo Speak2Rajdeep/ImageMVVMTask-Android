@@ -24,16 +24,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        recyclerView = binding.recycler
 
-        //Connecting with ViewModel Class
+        recyclerView = binding.recycler
+        val gridLayout = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = gridLayout
+
+        //Creating reference and Connecting with ViewModel Class
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         )[PhotosViewModel::class.java]
-
-        val gridLayout = GridLayoutManager(this, 2)
-        recyclerView.layoutManager = gridLayout
-        recyclerView.adapter = viewModel.recyclerViewImplementation()
+        recyclerView.adapter = viewModel.addPhotos()
     }
 }

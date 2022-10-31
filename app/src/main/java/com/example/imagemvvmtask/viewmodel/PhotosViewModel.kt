@@ -7,17 +7,14 @@ import com.example.imagemvvmtask.views.MyAdapter
 
 /**
  * 1. This is ViewModel Class.
- * 2. Here we Implement the RecyclerView and Store the Photos in an Array.
+ * 2. Here we Store the Photos in an Array.
  * 3. We are returning the ArrayList as MyAdapter Return Type.
  */
 
-class PhotosViewModel() : ViewModel() {
-    lateinit var newArrayList: ArrayList<Photos>
-    lateinit var imageId: Array<Int>
-
-    fun recyclerViewImplementation(): MyAdapter {
-        newArrayList = arrayListOf<Photos>()
-        imageId = arrayOf(
+class PhotosViewModel : ViewModel() {
+    fun addPhotos(): MyAdapter {
+        val newArrayList = arrayListOf<Photos>()
+        val imageId: Array<Int> = arrayOf(
             R.drawable.sky,
             R.drawable.android,
             R.drawable.insta,
@@ -83,6 +80,7 @@ class PhotosViewModel() : ViewModel() {
             R.drawable.spiderman,
             R.drawable.android,
             R.drawable.sky,
+            R.drawable.spiderman,
             R.drawable.insta,
             R.drawable.spiderman,
             R.drawable.android,
